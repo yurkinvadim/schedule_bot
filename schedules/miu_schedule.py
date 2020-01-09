@@ -19,4 +19,4 @@ def schedule_parameters():
     except UnicodeDecodeError:
         formatted_csv = pandas.read_csv("Output.txt", encoding="windows-1251")
     return formatted_csv[["Start Time", "Description", "Location"]].to_string()
-
+#
