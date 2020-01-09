@@ -14,9 +14,10 @@ def schedule_parameters():
     text_file = open("Output.txt", "w")
     text_file.write(csv.text)
     text_file.close()
-    formated_csv = pandas.read_csv("Output.txt", encoding="windows-1251")
-    print(formated_csv)
-    print(formated_csv[["Start Date", "Start Time", "Description", "Location"]].to_string())
-    return formated_csv[["Start Date", "Start Time", "Description", "Location"]].to_string()
+    formatted_csv = pandas.read_csv("Output.txt", encoding="windows-1251", index_col='Start Date')
+    try:
+        formatted_csv = pandas.read_csv("Output.txt", encoding='utf-8')
+    except UnicodeDecodeError:
+        formatted_csv = pandas.read_csv("Output.txt", encoding="windows-1251")
+    return formatted_csv[["Start Time", "Description", "Location"]].to_string()
 
-schedule_parameters()
