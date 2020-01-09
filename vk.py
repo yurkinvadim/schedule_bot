@@ -9,7 +9,7 @@ f.close()
 vk = vk_api.VkApi(token=token)
 longpoll = VkLongPoll(vk)
 universities = ['бгуир', 'миу']
-university = ''
+users_universities = {}
 
 
 def write_msg(user_id, message):
@@ -20,13 +20,16 @@ for event in longpoll.listen():
     if event.type == VkEventType.MESSAGE_NEW:
         if event.to_me:
             request = event.text
-            if request in universities:
-                university = request
+            if request.lower() in universities:
+                university = request.lower()
+                users_universities[event.user_id] = university
+
             if request.lower().startswith('пары'):
-                    if university == 'бгуир':
+                try:
+                    if users_universities[event.user_id] == 'бгуир':
                             write_msg(event.user_id, bsuir(request.lower()))
-                    elif university == 'миу':
+                    elif users_universities[event.user_id] == 'миу':
                         write_msg(event.user_id, miu())
-                    else:
-                        write_msg(event.user_id, 'Вы не выбрали университет')
+                except KeyError:
+                    write_msg(event.user_id, 'Вы не выбрали университет')
 
