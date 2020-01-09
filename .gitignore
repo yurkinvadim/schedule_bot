@@ -4,3 +4,5 @@
 schedules/__pycache__/
 
 token.txt
+
+__pycache__/
