@@ -3,8 +3,9 @@ from schedules.bsuir_schedule import schedule_parameters as bsuir
 from schedules.miu_schedule import schedule_parameters as miu
 
 from vk_api.longpoll import VkLongPoll, VkEventType
-d
-token = "7475007a6ea3354a2c967e11edd1b3775bb49d2f7d3fcb959a5a61d8c3bc50e9dc49c025a3822a450774c"
+f = open('token.txt')
+token = f.readline()
+f.close()
 vk = vk_api.VkApi(token=token)
 longpoll = VkLongPoll(vk)
 universities = ['бгуир', 'миу']
