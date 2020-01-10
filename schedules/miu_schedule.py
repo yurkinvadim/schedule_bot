@@ -30,6 +30,14 @@ def weekday(date_str):
     return days[day_number_]
 
 
+def time(time_str):
+    """конвертрование формата времени из 12 в 24"""
+    format_str = '%I:%M:%S %p'
+    convert_format = '%H:%M'
+    time = datetime.datetime.strptime(time_str, format_str)
+    return f'{time.strftime(convert_format)}'
+
+
 def schedule_csv(week=current_week()):
     expschedule_url = "http://miu.by/rus/schedule/expshedule.php"
     payload = {'spec': 'Программное обеспечение информационных технологий'.encode('windows-1251'),
@@ -46,6 +54,8 @@ def schedule_csv(week=current_week()):
     except UnicodeDecodeError:
         formatted_csv = pandas.read_csv("Output.txt", encoding="windows-1251")
     formatted_csv['Weekday'] = formatted_csv['Start Date'].apply(weekday)
+    formatted_csv['Start Time'] = formatted_csv['Start Time'].apply(time)
+    formatted_csv['End Time'] = formatted_csv['End Time'].apply(time)
     return formatted_csv
 
 
@@ -103,7 +113,7 @@ def schedule(day, schedules):
     day_schedule = schedules[day_mask]
 
     for index, rows in day_schedule.iterrows():
-        start_end = f'{rows["Start Time"][:-6]}-{rows["End Time"][:-6]}'
+        start_end = f'{rows["Start Time"]}-{rows["End Time"]}'
         description = f'{rows["Description"][:-5]}'
         location = f'{rows["Location"][4:]}'
         result_schedule.append(f'{start_end} {description} {location}')
