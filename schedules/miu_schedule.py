@@ -68,7 +68,7 @@ def schedule_parameters(message):
     if message_parameter in ['на всю неделю', 'неделя']:
         return week_schedule()
 
-    elif message_parameter in ['на следующую неделю', 'след нед']:
+    elif message_parameter in ['на следующую неделю', 'след неделя']:
         return week_schedule(int(current_week())+1)
 
     elif message_parameter == 'завтра':
