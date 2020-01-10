@@ -27,9 +27,9 @@ for event in longpoll.listen():
             if request.lower().startswith('пары'):
                 try:
                     if users_universities[event.user_id] == 'бгуир':
-                            write_msg(event.user_id, bsuir(request.lower()))
+                        write_msg(event.user_id, bsuir(request.lower()))
                     elif users_universities[event.user_id] == 'миу':
-                        write_msg(event.user_id, miu())
+                        write_msg(event.user_id, miu(request.lower()))
                 except KeyError:
                     write_msg(event.user_id, 'Вы не выбрали университет')
 
