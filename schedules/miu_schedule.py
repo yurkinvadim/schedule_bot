@@ -63,45 +63,19 @@ def schedule_parameters(message):
     if message != 'пары':
         message_parameter = message[5:]
     else:
-        schedules = schedule(days[day_number()], schedule_csv())
-        if len(schedules) == 0:
-            return 'Сегодня пар нет'
-        else:
-            return f'{days[day_number()].capitalize()}:\n' + '\n'.join(schedules) + '\n'
+        return schedule(days[day_number()], schedule_csv())
 
     if message_parameter in ['на всю неделю', 'неделя']:
-        week_schedule = []
-        for day in days:
-            schedules = schedule(day, schedule_csv())
-            if len(schedules) == 0:
-                week_schedule.append(day.capitalize() + ':\nВ этот день пар нет\n')
-                continue
-            week_schedule.append(f'{day.capitalize()}:\n'+'\n'.join(schedules)+'\n')
-        return '\n'.join(week_schedule)
+        return week_schedule()
 
-    elif message_parameter == 'на следующую неделю':
-        week_schedule = []
-        for day in days:
-            schedules = schedule(day, schedule_csv(week=int(current_week())+1))
-            if len(schedules) == 0:
-                week_schedule.append(day.capitalize() + ':\nВ этот день пар нет\n')
-                continue
-            week_schedule.append(f'{day.capitalize()}:\n' + '\n'.join(schedules) + '\n')
-        return '\n'.join(week_schedule)
+    elif message_parameter in ['на следующую неделю', 'след нед']:
+        return week_schedule(int(current_week())+1)
 
     elif message_parameter == 'завтра':
-        schedules = schedule(days[day_number()+1], schedule_csv())
-        if len(schedules) == 0:
-            return 'В этот день пар нет'
-        else:
-            return f'{days[day_number()+1].capitalize()}:\n' + '\n'.join(schedules) + '\n'
+        return schedule(days[day_number()+1], schedule_csv())
 
     elif message_parameter in days:
-        schedules = schedule(days[days.index(message_parameter)], schedule_csv())
-        if len(schedules) == 0:
-            return 'В этот день пар нет'
-        else:
-            return f'{days[days.index(message_parameter)].capitalize()}:\n'+'\n'.join(schedules)+'\n'
+        return schedule(days[days.index(message_parameter)], schedule_csv())
     else:
         return 'Извините, я вас не понимаю'
 
@@ -117,6 +91,21 @@ def schedule(day, schedules):
         description = f'{rows["Description"][:-5]}'
         location = f'{rows["Location"][4:]}'
         result_schedule.append(f'{start_end} {description} {location}')
-    return result_schedule
+
+    if len(result_schedule) == 0:
+        return f'{day.capitalize()}:\n В этот день пар нет\n'
+    else:
+        return f'{day.capitalize()}:\n' + '\n'.join(result_schedule) + '\n'
+
+
+def week_schedule(week=int(current_week())):
+    week_schedule_ = []
+    for day in days:
+        schedules = schedule(day, schedule_csv(week=week))
+        if len(schedules) == 0:
+            week_schedule_.append(day.capitalize() + ':\nВ этот день пар нет\n')
+            continue
+        week_schedule_.append(schedules)
+    return '\n'.join(week_schedule_)
 
 
