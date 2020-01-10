@@ -7,8 +7,11 @@ url = "https://journal.bsuir.by/api/v1/studentGroup/schedule?studentGroup=613301
 response = (requests.get(url=url)).text
 schedule_json = json.loads(response)
 
-day_number = date.weekday(datetime.now())
 days = ["понедельник", "вторник", "среда", "четверг", "пятница", 'суббота', 'воскресенье']
+
+
+def day_number():
+    return date.weekday(datetime.now())
 
 
 def remember_lesson(lesson):
@@ -40,12 +43,12 @@ def schedule_parameters(message):
     if len(message) > 4:
         message_parameter = message[5:]
     else:
-        return schedule(days[day_number])
+        return schedule(days[day_number()])
 
     # конкретный день недели
     if message_parameter in days:
         week = schedule_json['currentWeekNumber']
-        if day_number > days.index(message_parameter):
+        if day_number() > days.index(message_parameter):
             if schedule_json['currentWeekNumber'] == 4:
                 week = 1
             else:
@@ -60,3 +63,5 @@ def schedule_parameters(message):
         return '\n'.join(x)
     else:
         return 'Извините, я вас не понимаю'
+
+
