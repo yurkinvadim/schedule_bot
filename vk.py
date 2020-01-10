@@ -1,8 +1,8 @@
 import vk_api
 from schedules.bsuir_schedule import schedule_parameters as bsuir
 from schedules.miu_schedule import schedule_parameters as miu
-
 from vk_api.longpoll import VkLongPoll, VkEventType
+
 f = open('token.txt')
 token = f.readline()
 f.close()
