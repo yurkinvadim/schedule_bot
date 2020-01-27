@@ -41,7 +41,7 @@ def time(time_str):
 def schedule_csv(week=current_week()):
     expschedule_url = "http://miu.by/rus/schedule/expshedule.php"
     payload = {'spec': 'Программное обеспечение информационных технологий'.encode('windows-1251'),
-               'group': '161701c'.encode('windows-1251'),
+               'group': '161701с'.encode('windows-1251'),
                'week': week}
     headers = {"Content-type": "application/x-www-form-urlencoded"}
     csv = requests.request("POST", url=expschedule_url, headers=headers, data=payload)

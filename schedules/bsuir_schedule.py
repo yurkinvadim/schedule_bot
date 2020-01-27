@@ -5,7 +5,6 @@ from datetime import date
 
 url = "https://journal.bsuir.by/api/v1/studentGroup/schedule?studentGroup=613301"
 response = (requests.get(url=url)).text
-schedule_json = json.loads(response)
 
 days = ["понедельник", "вторник", "среда", "четверг", "пятница", 'суббота', 'воскресенье']
 
@@ -27,7 +26,7 @@ def remember_lesson(lesson):
     return f'{lesson_time} {lesson_type} {subject} {employee_name} {auditory}, Подгруппа: {num_subgroup}'
 
 
-def schedule(day, week=schedule_json['currentWeekNumber']):
+def schedule(day, schedule_json, week):
     for schedules in schedule_json['schedules']:
         if schedules['weekDay'].lower() == day:
             result_schedule = []
@@ -39,12 +38,14 @@ def schedule(day, week=schedule_json['currentWeekNumber']):
 
 
 def schedule_parameters(message):
+    if response == '<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">\n<html><head>\n<title>503 Service Unavailable</title>\n</head><body>\n<h1>Service Unavailable</h1>\n<p>The server is temporarily unable to service your\nrequest due to maintenance downtime or capacity\nproblems. Please try again later.</p>\n</body></html>\n':
+        return 'Service Unavailable'
+    schedule_json = json.loads(response)
     # сегодняшний день
     if len(message) > 4:
         message_parameter = message[5:]
     else:
-        return schedule(days[day_number()])
-
+        return schedule(day = days[day_number()], shedule_json = shedule_json, week=schedule_json['currentWeekNumber'])
     # конкретный день недели
     if message_parameter in days:
         week = schedule_json['currentWeekNumber']
@@ -63,5 +64,3 @@ def schedule_parameters(message):
         return '\n'.join(x)
     else:
         return 'Извините, я вас не понимаю'
-
-
