@@ -54,13 +54,13 @@ def schedule_parameters(message):
                 week = 1
             else:
                 week = schedule_json['currentWeekNumber']+1
-        return schedule(days[days.index(message_parameter)], week)
+        return schedule(days[days.index(message_parameter)], schedule_json = schedule_json, week=schedule_json['currentWeekNumber'])
 
     # на всю неделю
     elif message_parameter == 'на всю неделю':
         x = []
         for day in days:
-            x.append(day.capitalize() + ':\n' + schedule(day, schedule_json['currentWeekNumber']) + '\n')
+            x.append(day.capitalize() + ':\n' + schedule(day, schedule_json = schedule_json, week=schedule_json['currentWeekNumber']) + '\n')
         return '\n'.join(x)
     else:
         return 'Извините, я вас не понимаю'

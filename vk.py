@@ -10,10 +10,11 @@ vk = vk_api.VkApi(token=token)
 longpoll = VkLongPoll(vk)
 universities = ['бгуир', 'миу']
 users_universities = {}
+keyboard1 = open("keyboard.json", "r", encoding="UTF-8").read()
 
 
 def write_msg(user_id, message):
-    vk.method('messages.send', {'user_id': user_id, 'message': message, 'v': 5.89})
+    vk.method('messages.send', {'user_id': user_id, 'message': message, 'v': 5.89, 'keyboard': keyboard1})
 
 
 for event in longpoll.listen():

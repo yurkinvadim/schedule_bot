@@ -1,0 +1,69 @@
+{
+    "one_time": false,
+    "buttons": [
+        [{
+                "action": {
+                    "type": "text",
+                    "label": "МИУ"
+                },
+                "color": "positive"
+            },
+			{
+                "action": {
+                    "type": "text",
+                    "label": "БГУИР"
+                },
+                "color": "positive"
+            }],
+			[{
+                "action": {
+                    "type": "text",
+                    "label": "Пары понедельник"
+                },
+                "color": "primary"
+            },
+            {
+                "action": {
+                    "type": "text",
+                    "label": "Пары вторник"
+                },
+                "color": "primary"
+            },
+            {
+                "action": {
+                    "type": "text",
+                    "label": "Пары среда"
+                },
+                "color": "primary"
+            }],
+            [{
+                "action": {
+                    "type": "text",
+                    "label": "Пары четверг"
+                },
+                "color": "primary"
+            },
+			{
+                "action": {
+                    "type": "text",
+                    "label": "Пары пятница"
+                },
+                "color": "primary"
+            },
+			{
+                "action": {
+                    "type": "text",
+                    "label": "Пары суббота"
+                },
+                "color": "primary"
+            }],
+			[{
+                "action": {
+                    "type": "text",
+                    "label": "Пары на всю неделю"
+                },
+                "color": "primary"
+            }
+        ]
+    ]
+}
