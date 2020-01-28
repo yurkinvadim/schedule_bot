@@ -45,7 +45,7 @@ def schedule_parameters(message):
     if len(message) > 4:
         message_parameter = message[5:]
     else:
-        return schedule(day = days[day_number()], shedule_json = shedule_json, week=schedule_json['currentWeekNumber'])
+        return schedule(day = days[day_number()], schedule_json = schedule_json, week=schedule_json['currentWeekNumber'])
     # конкретный день недели
     if message_parameter in days:
         week = schedule_json['currentWeekNumber']
