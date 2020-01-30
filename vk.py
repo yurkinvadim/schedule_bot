@@ -1,7 +1,9 @@
 import vk_api
+import logging
 from schedules.bsuir_schedule import schedule_parameters as bsuir
 from schedules.miu_schedule import schedule_parameters as miu
 from vk_api.longpoll import VkLongPoll, VkEventType
+
 
 f = open('token.txt')
 token = f.readline()
@@ -10,11 +12,11 @@ vk = vk_api.VkApi(token=token)
 longpoll = VkLongPoll(vk)
 universities = ['бгуир', 'миу']
 users_universities = {}
-keyboard1 = open("keyboard.json", "r", encoding="UTF-8").read()
-
+keyboard = open("keyboard.json", "r", encoding="UTF-8").read()
+logging.basicConfig(filename="logging.log", level=logging.DEBUG)
 
 def write_msg(user_id, message):
-    vk.method('messages.send', {'user_id': user_id, 'message': message, 'v': 5.89, 'keyboard': keyboard1})
+    vk.method('messages.send', {'user_id': user_id, 'message': message, 'v': 5.89, 'keyboard': keyboard})
 
 
 for event in longpoll.listen():
