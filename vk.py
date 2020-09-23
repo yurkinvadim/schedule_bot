@@ -13,7 +13,8 @@ longpoll = VkLongPoll(vk)
 universities = ['бгуир', 'миу']
 users_universities = {}
 keyboard = open("keyboard.json", "r", encoding="UTF-8").read()
-logging.basicConfig(filename="logging.log", level=logging.DEBUG)
+logging.basicConfig(filename="logging.log", level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+
 
 def write_msg(user_id, message):
     vk.method('messages.send', {'user_id': user_id, 'message': message, 'v': 5.89, 'keyboard': keyboard})
